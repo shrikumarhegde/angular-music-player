@@ -43,3 +43,14 @@
   bottom: 0;
   height: 100px;
 }
+
+.search-result {
+  max-height: 400px;
+  overflow: auto;
+  min-width: 400px;
+}
+
+.search-result-item {
+  cursor: pointer;
+  border-bottom: 1px solid #f2f2f2;
+}

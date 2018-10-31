@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { ArtistComponent } from './artist/artist.component';
@@ -15,6 +16,8 @@ import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
 import { PlayerComponent } from './player/player.component';
 import { TrackControlComponent } from './track/track-control/track-control.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { TrackControlComponent } from './track/track-control/track-control.compo
     TrackComponent,
     PlayerComponent,
     TrackControlComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,8 @@ import { TrackControlComponent } from './track/track-control/track-control.compo
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    AppRoutingModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

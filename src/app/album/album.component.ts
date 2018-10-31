@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ItunesService } from '../shared/itunes.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-album',
@@ -7,39 +8,26 @@ import { ItunesService } from '../shared/itunes.service';
   styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit {
-  _artistID: number = 0;
   albumArray: Array<any> = [];
-  collectionId: number = 0;
-  @Input()
-  set artistID(artistId: number) {
-    this._artistID = artistId;
-    this.getAlbum();
-  }
-  @Input()
-  artistName;
-
-  get artistID() {
-    return this._artistID;
-  }
   displayedColumns: string[] = [
     'artworkUrl60',
     'collectionName',
     'releaseDate',
   ];
-  constructor(private ituneService: ItunesService) {}
+  constructor(
+    private ituneService: ItunesService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
-
-  getCollectionID(row) {
-    this.collectionId = row.collectionId;
+  ngOnInit() {
+    this.route.params.subscribe(param => {
+      this.getAlbum(param.id);
+    });
   }
 
-  getAlbum() {
-    this.ituneService
-      .getAlbum(this.artistID)
-      .subscribe((results: Array<any>) => {
-        console.log('res ', results);
-        this.albumArray = results;
-      });
+  getAlbum(artistId: number) {
+    this.ituneService.getAlbum(artistId).subscribe((results: Array<any>) => {
+      this.albumArray = results;
+    });
   }
 }

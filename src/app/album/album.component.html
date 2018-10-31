@@ -1,5 +1,4 @@
-<table mat-table [dataSource]="albumArray" class="mat-elevation-z8">
-  <!-- Position Column -->
+<!-- <table mat-table [dataSource]="albumArray" class="mat-elevation-z8">
   <ng-container matColumnDef="artworkUrl60">
     <th mat-header-cell *matHeaderCellDef> </th>
     <td mat-cell *matCellDef="let element">
@@ -19,7 +18,17 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getCollectionID(row)"></tr>
-</table>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table> -->
 
-<app-track [collectionId]="collectionId"></app-track>
+<!-- <app-track [collectionId]="collectionId"></app-track> -->
+
+<mat-card class="album-card" *ngFor="let album of albumArray">
+  <mat-card-content>
+    <img [src]="album.artworkUrl100" width="160px">
+  </mat-card-content>
+  <mat-card-header class="album-header">
+    <mat-card-title class="album-title">{{album.collectionName}}</mat-card-title>
+    <mat-card-subtitle>{{album.primaryGenreName}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

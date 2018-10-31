@@ -1,18 +1,25 @@
 <mat-toolbar role="heading" class="mat-elevation-z3">
-  <div class="col-md-3"><span> <i class="fa fa-music"></i> &nbsp;Angular Music Player</span></div>
+  <div class="col-md-3"><span> <i class="fa fa-compact-disc"></i> &nbsp;Angular Music Player</span></div>
   <div class="col-md-6">
     <div class="search-container">
       <i class="fa fa-search search-icon"></i>
       <input type="text" placeholder="Search Artist" class="search-input" #searchBox (keyup)="search(searchBox.value)">
+      <mat-list class="mat-elevation-z3 search-result" *ngIf="searchResults.length>0 && !hideResult">
+        <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">
+          <a (click)="hideResult=true;searchBox.value=''" [routerLink]="[artist.artistId, artist.artistName]">{{
+            artist.artistName }}</a>
+        </mat-list-item>
+      </mat-list>
+
+
     </div>
   </div>
 </mat-toolbar>
 <div class="container">
   <div class="body_container">
-    <app-artist [searchKey]="searchKey" *ngIf="searchKey!==''"></app-artist>
+    <router-outlet></router-outlet>
   </div>
 </div>
-
 <mat-toolbar role="footer" class="mat-elevation-z3 music-control">
   <app-player></app-player>
 </mat-toolbar>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ItunesService } from './shared/itunes.service';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  searchKey: string = '';
-  search(value: string) {
-    this.searchKey = value;
+  searchResults: Array<any> = [];
+  constructor(private ituneService: ItunesService) {}
+
+  search(param) {
+    this.ituneService.search(param).subscribe(
+      data => {
+        // console.log(data['results']);
+        this.searchResults = data['results'];
+      },
+      err => console.log(err)
+    );
   }
 }
