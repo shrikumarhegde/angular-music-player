@@ -1,0 +1,18 @@
+<mat-toolbar role="heading" class="mat-elevation-z3">
+  <div class="col-md-3"><span> <i class="fa fa-music"></i> &nbsp;Angular Music Player</span></div>
+  <div class="col-md-6">
+    <div class="search-container">
+      <i class="fa fa-search search-icon"></i>
+      <input type="text" placeholder="Search Artist" class="search-input" #searchBox (keyup)="search(searchBox.value)">
+    </div>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <div class="body_container">
+    <app-artist [searchKey]="searchKey" *ngIf="searchKey!==''"></app-artist>
+  </div>
+</div>
+
+<mat-toolbar role="footer" class="mat-elevation-z3 music-control">
+  <app-player></app-player>
+</mat-toolbar>
