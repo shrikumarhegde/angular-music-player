@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xs-12">
+   <a routerLink="../../">{{routeParams.name}}</a> / <a> {{routeParams.collection_name}} - Tracks</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 mb-5 mt-2">
+    <div class="col-xs-2">
+      <img [src]="selectedAlbum.artworkUrl100" width="100%" class="responsive-image">
+    </div>
+    <div class="col-xs-10">
+      <h4> {{selectedAlbum.collectionName}} </h4>
+    </div>
+  </div>
+</div>
+<table mat-table [dataSource]="tracks" class="mat-elevation-z8">
+  <ng-container matColumnDef="Number">
+    <th mat-header-cell *matHeaderCellDef style="width:60px"> # </th>
+    <td mat-cell *matCellDef="let element"> {{element.trackNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.trackName}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="track-row"></tr>
+</table>

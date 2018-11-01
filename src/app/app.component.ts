@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { ItunesService } from './shared/itunes.service';
 import { fromEvent,interval } from 'rxjs';
-import { debounce } from 'rxjs/operators';
+import { debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(){
     let buttonStream$=fromEvent(this.searchInput.nativeElement, 'keyup')
-    .pipe(debounce(val => interval(1000)))
+    .pipe(debounceTime(1000))
     .subscribe(()=>{
       this.search(this.searchInput.nativeElement.value);
     });
