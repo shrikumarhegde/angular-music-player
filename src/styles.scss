@@ -3,3 +3,7 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+  background: #fafafa;
+}

@@ -8,6 +8,17 @@
   background: #fff;
 }
 
+@media (min-width: 768px) {
+  .header-text {
+    display: inline;
+  }
+}
+@media (max-width: 768px) {
+  .header-text {
+    display: hidden;
+  }
+}
+
 .search-container {
   position: relative;
   display: block;
