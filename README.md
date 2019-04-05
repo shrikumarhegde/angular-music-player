@@ -6,7 +6,7 @@ This angular music player fetches the artist information from iTunes and display
 ![img1](docs/0.PNG?raw=true "Title")
 <br /><br />
 
-2. List of Albumbs by Artist
+2. List of Albums by Artist
 ![img1](docs/1.PNG?raw=true "Title")
 <br /><br />
 
