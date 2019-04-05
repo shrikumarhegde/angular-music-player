@@ -1,6 +1,31 @@
 # Angular-music-player
+This angular music player fetches the artist information from iTunes and displays the Albums and Songs.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
+## Features
+1. Search by Artist Name with Auto suggestion
+![img1](docs/0.PNG?raw=true "Title")
+<br /><br />
+
+2. List of Albumbs by Artist
+![img1](docs/1.PNG?raw=true "Title")
+<br /><br />
+
+3. List of tracks by Album. Clicking on a track to play the music preview
+![img1](docs/2.PNG?raw=true "Title")
+<br /><br />
+
+4. Responsive Design
+4. Angular Material
+
+## Future Roadmap
+1. User Login, bookmarks
+2. Search by Album, Track name
+3. Integration of Spotify and LastFm
+4. Integration of dropbox and google drive
+4. More intuitive player 
+
+
+
 
 ## Development server
 
