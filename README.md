@@ -1,7 +1,8 @@
 # Angular-music-player
 This angular music player fetches the artist information from iTunes and displays the Albums and Songs.
 
-<a href="https://angular-music-player.web.app/#/183313439/Ed%20Sheeran" target="_blank">Demo</a>.
+<a href="https://angular-music-player.web.app/#/183313439/Ed%20Sheeran" target="_blank">Demo</a>
+
 
 
 
