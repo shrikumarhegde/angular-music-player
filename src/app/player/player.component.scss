@@ -1,0 +1,16 @@
+.player-progress {
+  height: 5px;
+  background: #d9d9d9;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
+
+.current-progress {
+  background: red;
+  position: absolute;
+  height: 5px;
+  transition: 1;
+  transition: width 10ms linear;
+}

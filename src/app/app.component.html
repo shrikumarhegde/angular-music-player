@@ -1,15 +1,33 @@
 <mat-toolbar role="heading" class="mat-elevation-z3">
-  <div class="col-md-3 col-xs-1" routerLink="/"><span><i class="fa fa-compact-disc"></i>
-      &nbsp; <span class="header-text"> Angular Music
-        Player</span> </span></div>
+  <div class="col-md-3 col-xs-1 header" routerLink="/">
+    <span
+      ><em class="fa fa-compact-disc"></em> &nbsp;
+      <span class="header-text"> Angular Music Player</span>
+    </span>
+  </div>
   <div class="col-md-6 col-xs-11">
     <div class="search-container">
-      <i class="fa fa-search search-icon"></i>
-      <input type="text" placeholder="Search Artist" class="search-input" #searchBox>
-      <mat-list class="mat-elevation-z3 search-result" *ngIf="searchResults.length>0 && !hideResult">
-        <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">
-          <a (click)="onResultClick()" [routerLink]="[artist.artistId, artist.artistName]">{{
-            artist.artistName }}</a>
+      <em class="fa fa-search search-icon"></em>
+      <input
+        type="text"
+        placeholder="Search Artist"
+        class="search-input"
+        #searchBox
+      />
+      <mat-list
+        class="mat-elevation-z3 search-result"
+        *ngIf="searchResults.length > 0 && !hideResult"
+      >
+        <mat-list-item
+          class="search-result-item"
+          role="listitem"
+          *ngFor="let artist of searchResults"
+        >
+          <a
+            (click)="onResultClick()"
+            [routerLink]="[artist.artistId, artist.artistName]"
+            >{{ artist.artistName }}</a
+          >
         </mat-list-item>
       </mat-list>
     </div>

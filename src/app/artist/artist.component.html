@@ -2,11 +2,17 @@
   <div class="col-sm-4" *ngIf="searchResults.length > 0">
     <h3>Search Results</h3>
     <mat-list role="list" *ngFor="let artist of searchResults">
-      <mat-list-item role="listitem"><a id="{{ artist.artistId }}" href="#" (click)="getAlbums(artist.artistId, artist.artistName)">{{
-          artist.artistName }}</a> </mat-list-item>
+      <mat-list-item role="listitem"
+        ><a
+          id="{{ artist.artistId }}"
+          href="#"
+          (click)="getAlbums(artist.artistId, artist.artistName)"
+          >{{ artist.artistName }}</a
+        >
+      </mat-list-item>
     </mat-list>
   </div>
-  <div class="col-xs-12" [ngClass]="{'col-sm-8': searchResults.length > 0 }">
+  <div class="col-xs-12" [ngClass]="{ 'col-sm-8': searchResults.length > 0 }">
     <h3>{{ selectedArtist }}</h3>
   </div>
 </div>

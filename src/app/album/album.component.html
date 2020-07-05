@@ -1,17 +1,22 @@
- <h4>{{artistName}} - Albums</h4>
-  <mat-divider></mat-divider>
-<div class="row">
+<h4 *ngIf="artistName">{{ artistName }} - Albums</h4>
+<mat-divider></mat-divider>
+<div class="row" *ngIf="albums$ | async as albumArray">
   <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let album of albumArray">
-      <mat-card class="album-card" matRipple (click)="onGetTracks(album)"> 
-          <mat-card-content>
-            <img [src]="album.artworkUrl100"  width="100%" class="responsive-image">
-          </mat-card-content>
-          <mat-card-header class="album-header">
-            <mat-card-title class="album-title">{{album.collectionName}}</mat-card-title>
-            <mat-card-subtitle>{{album.primaryGenreName}}</mat-card-subtitle>
-          </mat-card-header>
-        </mat-card>
+    <mat-card class="album-card" matRipple (click)="onGetTracks(album)">
+      <mat-card-content>
+        <img
+          [src]="album.artworkUrl100"
+          width="100%"
+          class="responsive-image"
+          alt=""
+        />
+      </mat-card-content>
+      <mat-card-header class="album-header">
+        <mat-card-title class="album-title">{{
+          album.collectionName
+        }}</mat-card-title>
+        <mat-card-subtitle>{{ album.primaryGenreName }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
   </div>
 </div>
-
-    

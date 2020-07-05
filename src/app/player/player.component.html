@@ -1,1 +1,13 @@
-<audio controls #player="" (ended)="playerEnded()">
+<!-- {{ track.name }} -->
+<!-- <img [src]="track.image" alt="" /> -->
+
+<div class="player-progress">
+  <span
+    class="current-progress"
+    [ngStyle]="{ width: currentPercent + '%' }"
+  ></span>
+</div>
+
+<audio #player controls (timeupdate)="onTimeUpdate()" preload="auto">
+  <p>Your browser does not support HTML5 audio</p>
+</audio>

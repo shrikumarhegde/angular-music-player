@@ -1,29 +1,27 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { filter, map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { filter, map } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 const API = {
-  SEARCH: 'https://itunes.apple.com/search?',
-  LOOKUP: 'https://itunes.apple.com/lookup?',
+  SEARCH: "https://itunes.apple.com/search?",
+  LOOKUP: "https://itunes.apple.com/lookup?",
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ItunesService {
   private _albums: Array<any> = [];
   private _artistId: number = 0;
-  tracksSubject = new Subject;
+  tracksSubject = new Subject();
 
   constructor(private http: HttpClient) {}
 
   search(param) {
     return this.http.jsonp(
-      `${
-        API.SEARCH
-      }callback=JSONP_CALLBACK&media=music&country=US&entity=musicArtist&term=${param}`,
-      'jsonp'
+      `${API.SEARCH}callback=JSONP_CALLBACK&media=music&country=US&entity=musicArtist&term=${param}`,
+      "jsonp"
     );
   }
 
@@ -31,12 +29,12 @@ export class ItunesService {
     return this.http
       .jsonp(
         `${API.LOOKUP}callback=JSONP_CALLBACK&entity=album&id=${artistId}`,
-        'jsonp'
+        "jsonp"
       )
-      .pipe( 
-        map(data => {
-          return data['results'].filter(
-            results => results['wrapperType'] == 'collection'
+      .pipe(
+        map((data) => {
+          return data["results"].filter(
+            (results) => results["wrapperType"] == "collection"
           );
         })
       );
@@ -46,12 +44,18 @@ export class ItunesService {
     return this.http
       .jsonp(
         `${API.LOOKUP}callback=JSONP_CALLBACK&entity=song&id=${albumID}`,
-        'jsonp'
+        "jsonp"
       )
       .pipe(
-        map(data => {
-          return data['results'];
+        map((data) => {
+          return data["results"];
         })
       );
+  }
+
+  getTopTracks() {
+    return this.http
+      .get<any>("https://itunes.apple.com/us/rss/topsongs/limit=100/json")
+      .pipe(map((res) => res.feed.entry));
   }
 }

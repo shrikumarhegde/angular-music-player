@@ -1,21 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ItunesService } from '../shared/itunes.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from "@angular/core";
+import { ItunesService } from "../shared/itunes.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { switchMap, map, mergeAll, toArray } from "rxjs/operators";
 
 @Component({
-  selector: 'app-album',
-  templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss'],
+  selector: "app-album",
+  templateUrl: "./album.component.html",
+  styleUrls: ["./album.component.scss"],
 })
 export class AlbumComponent implements OnInit {
-  albumArray: Array<any> = [];
-  artistName: string;
-  artistId: string;
   displayedColumns: string[] = [
-    'artworkUrl60',
-    'collectionName',
-    'releaseDate',
+    "artworkUrl60",
+    "collectionName",
+    "releaseDate",
   ];
+  albums$: Observable<any>;
+  artistName: string;
+
   constructor(
     private ituneService: ItunesService,
     private router: Router,
@@ -23,33 +25,33 @@ export class AlbumComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(param => {
-      this.artistId = param.id;
-      this.artistName = param.name;
-      this.getAlbum(param.id);
-    });
-  }
-
-  getAlbum(artistId: number) {
-    this.ituneService.getAlbum(artistId).subscribe((results: Array<any>) => {
-      this.albumArray = results.map(albums => {
-        albums.artworkUrl100 = this.replaceArtwork(albums.artworkUrl100);
-        return albums;
-      });
-    });
+    this.albums$ = this.route.params.pipe(
+      switchMap((param) => {
+        this.artistName = param.name;
+        return this.ituneService.getAlbum(param.id).pipe(
+          mergeAll(),
+          map((res: any) => {
+            res.artworkUrl100 = this.replaceArtwork(res.artworkUrl100);
+            return res;
+          }),
+          toArray()
+        );
+      })
+    );
   }
 
   private replaceArtwork(url: string) {
-    let urlArray = url.split('/');
-    urlArray[urlArray.length - 1] = '300x300bb.jpg';
-    return urlArray.join('/');
+    if (!url) return null;
+    let urlArray = url.split("/");
+    urlArray[urlArray.length - 1] = "300x300bb.jpg";
+    return urlArray.join("/");
   }
 
   onGetTracks(album) {
     this.ituneService.tracksSubject.next(album);
     this.router.navigate([
-      this.artistId,
-      this.artistName,
+      album.artistId,
+      album.artistName,
       album.collectionId,
       album.collectionName,
     ]);

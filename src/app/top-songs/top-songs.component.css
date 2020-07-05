@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+th {
+  text-transform: uppercase;
+  color: #333;
+  font-weight: bold;
+}
+td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.track-row {
+  cursor: pointer;
+  outline: none;
+  border-collapse: separate;
+  overflow: hidden;
+}
+
+.track-row:hover {
+  background: #f5f5f5;
+}
+
+.album-details {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.track-image {
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 10x solid #ccc;
+  height: 40px;
+}

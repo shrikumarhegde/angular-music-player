@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PlayerService } from '../shared/player.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { PlayerService } from "../shared/player.service";
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
+  selector: "app-player",
+  templateUrl: "./player.component.html",
+  styleUrls: ["./player.component.scss"],
 })
 export class PlayerComponent implements OnInit {
-  @ViewChild('player')
+  @ViewChild("player", { static: true })
   playerRef;
   player: any;
+  track: any;
+  currentPercent: any;
 
   constructor(private playerSer: PlayerService) {
-    playerSer.playTrack$.subscribe(previewUrl => {
-      this.playTrack(previewUrl);
-    });
-    playerSer.pauseTrack$.subscribe(() => {
-      this.pauseTrack();
+    playerSer.playTrack$.subscribe((track: any) => {
+      this.playTrack(track.url);
+      this.track = track;
     });
   }
 
@@ -24,16 +24,14 @@ export class PlayerComponent implements OnInit {
     this.player = this.playerRef.nativeElement;
   }
 
-  playTrack(previewUrl) {
+  playTrack(previewUrl: string) {
     this.player.src = previewUrl;
     this.player.play();
   }
 
-  pauseTrack() {
-    this.player.pause();
-  }
-
-  playerEnded() {
-    this.playerSer.trackEnded();
+  onTimeUpdate() {
+    this.currentPercent = Math.round(
+      (this.player.currentTime / this.player.duration) * 100
+    );
   }
 }

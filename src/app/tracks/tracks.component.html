@@ -1,38 +1,62 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12" *ngIf="selectedAlbum?.artistName">
     <h5>
-      <a routerLink="../../">{{routeParams.name}} - Albums </a> / Tracks
+      <a routerLink="../../">{{ selectedAlbum.artistName }} - Albums </a> /
+      Tracks
     </h5>
   </div>
 </div>
-<div class="row  mb-5 mt-4">
+<div class="row mb-5 mt-4">
   <div class="col-xs-2">
-    <img [src]="selectedAlbum?.albumImageURL" width="100%" class="responsive-image mat-elevation-z1" *ngIf="selectedAlbum?.albumImageURL">
+    <img
+      [src]="selectedAlbum?.albumImageURL"
+      width="100%"
+      class="responsive-image mat-elevation-z1"
+      *ngIf="selectedAlbum?.albumImageURL"
+      alt="album"
+    />
   </div>
   <div class="col-xs-10">
-    <h2> {{selectedAlbum?.albumName}} </h2>
+    <h2>{{ selectedAlbum?.albumName }}</h2>
     <div class="row">
       <div class="col-xs-12 album-details">
-        {{selectedAlbum?.artistName}} </div>
+        {{ selectedAlbum?.artistName }}
+      </div>
     </div>
     <div class="row mt-2">
       <div class="col-xs-12 album-details">
-        {{selectedAlbum?.releaseDate | date:'yyyy'}} | {{selectedAlbum?.trackCount}} Songs | {{selectedAlbum?.genre}}
+        {{ selectedAlbum?.releaseDate | date: "yyyy" }} |
+        {{ selectedAlbum?.trackCount }} Songs | {{ selectedAlbum?.genre }}
       </div>
     </div>
   </div>
 </div>
-<table mat-table [dataSource]="tracks" class="mat-elevation-z8">
+<table
+  mat-table
+  [dataSource]="tracks$ | async"
+  class="mat-elevation-z8"
+  aria-describedby="tracks"
+>
   <ng-container matColumnDef="Number">
-    <th mat-header-cell *matHeaderCellDef style="width:60px"> # </th>
-    <td mat-cell *matCellDef="let element"> {{element.trackNumber}} </td>
+    <th mat-header-cell *matHeaderCellDef style="width: 60px;" scope="col">
+      #
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <!-- <app-track-control [track]="element"></app-track-control> -->
+      {{ element.trackNumber }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="Name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.trackName}} </td>
+    <th mat-header-cell *matHeaderCellDef scope="col">Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.trackName }}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="track-row" (click)="playTrack(row)"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="track-row"
+    (click)="playTrack(row)"
+  ></tr>
 </table>

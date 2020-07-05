@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PlayerService {
   constructor() {}
 
-  private playTrackSource = new Subject<string>();
+  private playTrackSource = new Subject<Track>();
   private pauseTrackSource = new Subject();
   private trackEndedSource = new Subject();
 
@@ -15,8 +15,8 @@ export class PlayerService {
   pauseTrack$ = this.pauseTrackSource.asObservable();
   trackEnded$ = this.trackEndedSource.asObservable();
 
-  playTrack(previewUrl: string) {
-    this.playTrackSource.next(previewUrl);
+  playTrack(track: Track) {
+    this.playTrackSource.next(track);
   }
 
   pauseTrack() {
@@ -26,4 +26,10 @@ export class PlayerService {
   trackEnded() {
     this.trackEndedSource.next();
   }
+}
+
+interface Track {
+  url: string;
+  name: string;
+  image: string;
 }

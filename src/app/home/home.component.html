@@ -1,1 +1,2 @@
-<app-artist [searchKey]="searchKey" *ngIf="searchKey!==''"></app-artist>
+<app-artist [searchKey]="searchKey" *ngIf="searchKey !== ''"></app-artist>
+<app-top-songs *ngIf="!searchKey"></app-top-songs>

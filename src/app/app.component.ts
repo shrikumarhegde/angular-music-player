@@ -9,7 +9,7 @@ import { debounceTime} from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit,AfterViewInit {
-  @ViewChild('searchBox') searchInput: ElementRef;
+  @ViewChild('searchBox', { static: true }) searchInput: ElementRef;
   // (keyup)="search(searchBox.value)"
 
   hideResult:boolean;

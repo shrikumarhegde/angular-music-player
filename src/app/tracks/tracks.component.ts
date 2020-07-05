@@ -1,19 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ItunesService } from '../shared/itunes.service';
-import { ActivatedRoute } from '@angular/router';
-import { Album } from '../album/album.model';
-import { PlayerService } from '../shared/player.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ItunesService } from "../shared/itunes.service";
+import { ActivatedRoute } from "@angular/router";
+import { Album } from "../album/album.model";
+import { PlayerService } from "../shared/player.service";
+import { Observable } from "rxjs";
+import { switchMap, tap, map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-tracks',
-  templateUrl: './tracks.component.html',
-  styleUrls: ['./tracks.component.scss'],
+  selector: "app-tracks",
+  templateUrl: "./tracks.component.html",
+  styleUrls: ["./tracks.component.scss"],
 })
-export class TracksComponent implements OnInit, OnDestroy {
+export class TracksComponent implements OnInit {
   selectedAlbum: Album;
-  routeParams;
-  tracks: Array<any> = [];
-  displayedColumns: string[] = ['Number', 'Name'];
+  displayedColumns: string[] = ["Number", "Name"];
+
+  tracks$: Observable<any>;
 
   constructor(
     private ituneService: ItunesService,
@@ -22,17 +24,25 @@ export class TracksComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.routeParams = params;
-      this.ituneService.getTracks(params.colllection_id).subscribe(tracks => {
-        this.tracks = tracks;
-        this.selectedAlbum = new Album(this.tracks.shift());
-      });
-    });
+    this.tracks$ = this.route.params
+      .pipe(
+        switchMap((param) => {
+          return this.ituneService.getTracks(param.colllection_id);
+        })
+      )
+      .pipe(
+        map((res: Array<Album>) => {
+          this.selectedAlbum = new Album(res.shift());
+          return res;
+        })
+      );
   }
-  ngOnDestroy() {}
 
   playTrack(track) {
-    this.playerService.playTrack(track.previewUrl);
+    this.playerService.playTrack({
+      url: track.previewUrl,
+      name: track.trackName,
+      image: track.artworkUrl100,
+    });
   }
 }
